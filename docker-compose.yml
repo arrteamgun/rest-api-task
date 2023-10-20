@@ -1,0 +1,16 @@
+version: "3"
+services:
+  db:
+    container_name: postgres_container
+    image: postgres
+    restart: always
+    #Обычно зашиваю в .env файлы или в github секреты, но здесь так оставлю
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: questions
+    ports:
+      - "5432:5432"
+    #Исполняет скрипт по поднятию образа postgres с созданием таблицы, если таблицы нет
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
